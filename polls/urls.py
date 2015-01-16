@@ -9,7 +9,3 @@ urlpatterns = patterns('',
     url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
 )
 
-
-urlpatterns += patterns('',
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT,}),
-)
