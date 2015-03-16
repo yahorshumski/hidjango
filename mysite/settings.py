@@ -69,7 +69,9 @@ if LIVEHOST:
     DEBUG = True
     PREPEND_WWW = True
     MEDIA_URL = 'http://static1.grsites.com/'
+    DATABASES = {}
     DATABASES['default'] =  dj_database_url.config()
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/'
