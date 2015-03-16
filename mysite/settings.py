@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 if LIVEHOST:
     DEBUG = True
-    PREPEND_WWW = False
+    #PREPEND_WWW = False
     MEDIA_URL = 'http://static1.grsites.com/'
     DATABASES = {}
     DATABASES['default'] =  dj_database_url.config()
@@ -82,7 +82,7 @@ if LIVEHOST:
 
 else:
     DEBUG = True
-    PREPEND_WWW = False
+    #PREPEND_WWW = False
     MEDIA_URL = 'http://localhost:8000/static/'
     DATABASES = {
     'default': {
