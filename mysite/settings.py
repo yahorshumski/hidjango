@@ -10,6 +10,14 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
+import socket
+
+if socket.gethostname().startswith('precise32'):
+    LIVEHOST = False
+else: 
+    LIVEHOST = True
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -57,7 +65,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
+if LIVEHOST:
+    DEBUG = True
+    PREPEND_WWW = True
+    MEDIA_URL = 'http://static1.grsites.com/'
+    DATABASES['default'] =  dj_database_url.config()
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'staticfiles'
+    STATIC_URL = '/static/'
+
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+
+else:
+    DEBUG = True
+    PREPEND_WWW = False
+    MEDIA_URL = 'http://localhost:8000/static/'
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'mydb',                      # Or path to database file if using sqlite3.
@@ -66,8 +91,10 @@ DATABASES = {
         'PASSWORD': 'qwert123',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
+        }
     }
-}
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
