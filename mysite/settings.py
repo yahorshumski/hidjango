@@ -67,10 +67,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 if LIVEHOST:
     DEBUG = True
-    PREPEND_WWW = True
+    PREPEND_WWW = False
     MEDIA_URL = 'http://static1.grsites.com/'
     DATABASES = {}
-    DATABASES['default'] =  dj_database_url.config()
+    c['default'] =  dj_database_url.config()
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_ROOT = 'staticfiles'
